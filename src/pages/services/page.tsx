@@ -59,11 +59,7 @@ export default function ServicesPage() {
                   <div className="p-6 md:p-8">
                     {/* Icon */}
                     <div className="w-14 h-14 flex items-center justify-center rounded-md bg-[rgba(201,168,76,0.08)] mb-5">
-                      <img
-                        src={service.icon}
-                        alt={service.title}
-                        className="w-8 h-8 object-contain"
-                      />
+                      <i className={`${service.icon} text-2xl text-[#C9A84C]`} />
                     </div>
 
                     {/* Title */}

@@ -2,8 +2,8 @@ export const teamMembers = [
   {
     id: 1,
     name: 'Tushar Barot',
-    role: 'Expert',
-    image: 'https://labhassociates.org/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-24-at-11.24.46-AM.jpeg',
-    bio: 'Tushar Barot brings years of expertise in project finance and banking relationships, leading Labh Associates with a vision of transparency and client-first financial consulting.',
+    role: 'Founder',
+    image: 'https://storage.helloreaddy.io/project_files/95da97ad-f20f-489f-8fde-b7b7061e2c9b/d640f51e-e88e-4293-a366-0dd4c4ee7a1a_compressed_1688036376471.webp',
+    bio: 'Founder of Labh Associates, specializing in project finance and banking advisory with a client-first approach.',
   },
 ];

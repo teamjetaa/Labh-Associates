@@ -3,7 +3,7 @@ export const services = [
     id: 1,
     title: 'Project Finance',
     slug: 'project-finance',
-    icon: 'https://labhassociates.org/wp-content/uploads/2024/01/project.png',
+    icon: 'ri-funds-box-line',
     description: 'Comprehensive financing solutions for new industrial projects, expansions, and greenfield ventures. We structure debt syndication, term loans, and project-specific funding tailored to your requirements.',
     shortDesc: 'Financing solutions for new industrial projects and expansions.',
     features: [
@@ -17,7 +17,7 @@ export const services = [
     id: 8,
     title: 'Business Loan / Unsecured Loan',
     slug: 'business-loan',
-    icon: 'https://labhassociates.org/wp-content/uploads/2024/01/loan-1.png',
+    icon: 'ri-briefcase-line',
     description: 'Unsecured and secured business loans for entrepreneurs and established companies. Approvals are based on creditworthiness and business track record, with customized solutions for sustainable growth.',
     shortDesc: 'Unsecured and secured loans based on creditworthiness and track record.',
     features: [
@@ -31,7 +31,7 @@ export const services = [
     id: 9,
     title: 'Housing Loan',
     slug: 'housing-loan',
-    icon: 'https://labhassociates.org/wp-content/uploads/2024/01/mortgage-1.png',
+    icon: 'ri-home-line',
     description: 'Home loans and mortgage solutions for purchasing, constructing, or renovating your dream home. We partner with leading banks to help you find competitive interest rates and flexible terms.',
     shortDesc: 'Home loans for purchasing, constructing, or renovating.',
     features: [
@@ -45,7 +45,7 @@ export const services = [
     id: 2,
     title: 'Working Capital \u0026 Term Loan',
     slug: 'working-capital',
-    icon: 'https://labhassociates.org/wp-content/uploads/2024/01/return-of-investment.png',
+    icon: 'ri-refresh-line',
     description: 'Optimize your business cash flow with tailored working capital and term loan solutions. MSME enterprises need working capital at various stages to cover daily operational expenses, inventory, and debtor management.',
     shortDesc: 'Cash flow optimization with working capital and term loan facilities.',
     features: [
@@ -59,7 +59,7 @@ export const services = [
     id: 3,
     title: 'Builder Finance',
     slug: 'builder-finance',
-    icon: 'https://labhassociates.org/wp-content/uploads/2024/01/contractor.png',
+    icon: 'ri-building-line',
     description: 'Specialized funding for real estate developers for proposed or ongoing construction projects — residential, commercial, and industrial. We provide construction finance, land acquisition support, and development funding.',
     shortDesc: 'Specialized funding for real estate developers and builders.',
     features: [
@@ -73,7 +73,7 @@ export const services = [
     id: 4,
     title: 'MSME Loan',
     slug: 'msme-loan',
-    icon: 'https://labhassociates.org/wp-content/uploads/2024/01/black.png',
+    icon: 'ri-store-line',
     description: 'Loans for small and medium enterprises for acquiring factory land, building, plant, machinery, and working capital at attractive interest rates. We also facilitate collateral-free loans under eligible government schemes.',
     shortDesc: 'Accessible credit for micro, small and medium enterprises.',
     features: [
@@ -87,7 +87,7 @@ export const services = [
     id: 5,
     title: 'Machinery Loan',
     slug: 'machinery-loan',
-    icon: 'https://labhassociates.org/wp-content/uploads/2024/01/cogwheel.png',
+    icon: 'ri-settings-3-line',
     description: 'Machinery is the most important asset for production. We facilitate loans for the purchase of plant and machinery, helping you upgrade production capabilities and expand manufacturing capacity.',
     shortDesc: 'Equipment financing to upgrade production capabilities.',
     features: [
@@ -101,7 +101,7 @@ export const services = [
     id: 7,
     title: 'Loan Against Property',
     slug: 'loan-against-property',
-    icon: 'https://labhassociates.org/wp-content/uploads/2024/01/mortgage-loan.png',
+    icon: 'ri-home-2-line',
     description: 'Salaried employees, professionals, and self-employed individuals who own residential, commercial, or industrial property can avail mortgage-backed loans for business and personal needs. Competitive loan-to-value ratios with flexible repayment options.',
     shortDesc: 'Mortgage-backed loans for business and personal needs.',
     features: [
@@ -115,7 +115,7 @@ export const services = [
     id: 6,
     title: 'Subsidy',
     slug: 'subsidy',
-    icon: 'https://labhassociates.org/wp-content/uploads/2024/01/loan.png',
+    icon: 'ri-coupon-2-line',
     description: 'Guidance on all State and Central Government subsidies for small and large businesses. We help you identify eligible schemes, prepare applications, and navigate the process from submission to disbursement.',
     shortDesc: 'Guidance on government subsidy schemes and grants.',
     features: [

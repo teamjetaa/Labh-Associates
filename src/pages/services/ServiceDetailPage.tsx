@@ -39,7 +39,7 @@ export default function ServiceDetailPage() {
         <div className="max-w-4xl mx-auto px-4 md:px-6">
           <div className="flex items-center gap-4 mb-8">
             <div className="w-16 h-16 flex items-center justify-center rounded-md bg-gold/10">
-              <img src={service.icon} alt={service.title} className="w-10 h-10 object-contain" />
+              <i className={`${service.icon} text-3xl text-[#C9A84C]`} />
             </div>
             <div>
               <h2 className="text-2xl md:text-3xl font-bold font-heading text-[#1A1714]">
@@ -122,7 +122,7 @@ export default function ServiceDetailPage() {
                 className="group bg-white p-6 rounded-md border border-[#E8E0D4] hover:shadow-lg transition-all duration-300"
               >
                 <div className="w-12 h-12 flex items-center justify-center rounded-md bg-gold/10 mb-4">
-                  <img src={s.icon} alt={s.title} className="w-7 h-7 object-contain" />
+                  <i className={`${s.icon} text-2xl text-[#C9A84C]`} />
                 </div>
                 <h3 className="text-lg font-bold font-heading text-[#1A1714] group-hover:text-[#C9A84C] transition-colors">
                   {s.title}
