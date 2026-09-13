@@ -1,0 +1,26 @@
+MODIFIED: .env
+MODIFIED: src/components/feature/ContactModal.tsx
+MODIFIED: src/index.css
+MODIFIED: src/lib/supabaseClient.ts
+MODIFIED: src/mocks/team.ts
+ADDED: src/pages/about/components/AboutHero.tsx
+MODIFIED: src/pages/about/components/ContactSection.tsx
+MODIFIED: src/pages/about/page.tsx
+MODIFIED: src/pages/careers/components/CvSubmitSection.tsx
+MODIFIED: src/pages/contact/page.tsx
+MODIFIED: src/pages/home/components/CTASection.tsx
+MODIFIED: src/pages/home/components/HeroSection.tsx
+MODIFIED: src/pages/team/page.tsx
+REMOVED_IN_ZIP: .claude/launch.json
+REMOVED_IN_ZIP: PICS/Untitled design_20260913_191143_0000.png
+REMOVED_IN_ZIP: PICS/_DSC2579.JPG.jpeg
+REMOVED_IN_ZIP: PICS/cea27d7e-42c3-4a10-9c68-e2ce4d0505d0_compressed_DSC_0164-copy.webp
+REMOVED_IN_ZIP: auto-imports.d.ts
+REMOVED_IN_ZIP: compare_zip.py
+REMOVED_IN_ZIP: out/assets/index--SS8i4op.js
+REMOVED_IN_ZIP: out/assets/index--SS8i4op.js.map
+REMOVED_IN_ZIP: out/assets/index-BhfmIJpA.css
+REMOVED_IN_ZIP: out/index.html
+REMOVED_IN_ZIP: package-lock.json
+REMOVED_IN_ZIP: project-13873377.zip
+REMOVED_IN_ZIP: src/pages/about/components/LeadershipTeam.tsx
