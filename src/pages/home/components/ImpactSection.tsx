@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import MatrixRain from '@/components/feature/MatrixRain';
 
 /* ===== IMPACT / NUMBERS SECTION =====
  * Full-width warm charcoal band with countup stats
@@ -86,10 +87,15 @@ function AnimatedStat({ target, suffix, label, subnote }: typeof stats[0]) {
 export default function ImpactSection() {
   return (
     <section
-      className="py-16 md:py-20"
+      className="relative overflow-hidden py-16 md:py-20"
       style={{ backgroundColor: '#2C2825' }}
     >
-      <div className="max-w-6xl mx-auto px-4 md:px-6">
+      {/* Faint financial data stream behind the stats */}
+      <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.85 }}>
+        <MatrixRain variant="ambient" />
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
           {stats.map((stat, i) => (
             <div key={stat.label} className="flex justify-center items-center">

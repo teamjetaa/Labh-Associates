@@ -1,5 +1,5 @@
 import useScrollReveal from '@/hooks/useScrollReveal';
-import AboutHero from './components/AboutHero';
+import PageHero from '@/components/feature/PageHero';
 import FirmStory from './components/FirmStory';
 import LeadershipTeam from './components/LeadershipTeam';
 import CoreValues from './components/CoreValues';
@@ -11,7 +11,12 @@ export default function AboutPage() {
 
   return (
     <main role="main">
-      <AboutHero />
+      <PageHero
+        eyebrow="Who We Are"
+        title="Our Firm"
+        subtitle="A legacy of trust in project finance since 2012 — from Gujarat to Mumbai, over a decade of empowering businesses with tailored financial solutions."
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
+      />
       <FirmStory />
       <LeadershipTeam />
       <CoreValues />

@@ -1,5 +1,6 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { services } from '@/mocks/services';
+import BackButton from '@/components/feature/BackButton';
 
 export default function ServiceDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -23,6 +24,9 @@ export default function ServiceDetailPage() {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 md:px-6 relative">
+          <div className="mb-4 flex justify-start">
+            <BackButton />
+          </div>
           <div className="flex items-center gap-2 text-sm text-[#8C8480] mb-3">
             <Link to="/services" className="hover:text-[#C9A84C] transition-colors">Services</Link>
             <span className="w-4 h-4 flex items-center justify-center">

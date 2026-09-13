@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import PageHero from '@/components/feature/PageHero';
 import { services } from '@/mocks/services';
 
 /* ===== SERVICES PAGE =====
@@ -16,27 +17,12 @@ export default function ServicesPage() {
   return (
     <div>
       {/* ===== PAGE HEADER ===== */}
-      <section
-        className="py-16 md:py-24 relative overflow-hidden"
-        style={{
-          background: 'linear-gradient(135deg, #2C2825 0%, #3D3530 50%, #2C2825 100%)',
-          backgroundSize: '200% 200%',
-          animation: 'heroGradient 15s ease infinite',
-        }}
-      >
-        <div className="max-w-7xl mx-auto px-4 md:px-6 text-center relative">
-          <p className="text-[#C9A84C] text-[11px] font-label uppercase tracking-[0.15em] mb-4">
-            What We Offer
-          </p>
-          <h1 className="text-3xl md:text-5xl font-bold font-heading text-[#F2EDE4]">
-            Our Services
-          </h1>
-          <div className="w-12 h-[2px] bg-[#C9A84C] mx-auto mt-5" />
-          <p className="text-[#8C8480] mt-5 text-sm md:text-base max-w-xl mx-auto leading-relaxed">
-            Comprehensive financial solutions tailored to your business and personal needs
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="What We Offer"
+        title="Our Services"
+        subtitle="Comprehensive financial solutions tailored to your business and personal needs."
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'Services' }]}
+      />
 
       {/* ===== SERVICES GRID ===== */}
       <section className="py-16 md:py-24 bg-cream">

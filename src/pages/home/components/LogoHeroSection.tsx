@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import MatrixRain from '@/components/feature/MatrixRain';
 
 /* ===== LOGO HERO SECTION =====
  * First section of the homepage. Logo centered on dark background
@@ -73,6 +74,22 @@ export default function LogoHeroSection() {
       <div
         className="absolute inset-0"
         style={{ background: '#1A1714' }}
+      />
+
+      {/* ===== MATRIX-STYLE FINANCIAL DATA STREAM ===== */}
+      {/* Farther layer — brighter and denser for a richer stream */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ opacity: 0.85 }}>
+        <MatrixRain variant="back" opacityScale={1.9} densityScale={1.4} edgeFade />
+      </div>
+      {/* Nearer layer — dense, glowing leading glyphs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ opacity: 0.9 }}>
+        <MatrixRain variant="front" opacityScale={1.6} densityScale={1.45} edgeFade />
+      </div>
+
+      {/* Readability vignette — keeps the centered logo the focal point */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at center, rgba(26,23,20,0.18) 0%, rgba(26,23,20,0.60) 100%)' }}
       />
 
       {/* Ambient gold particles — parallax layer */}

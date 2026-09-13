@@ -27,12 +27,20 @@ export default function Navbar() {
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const location = useLocation();
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
 
   const isHome = location.pathname === '/';
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 80);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 80);
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const progress = max > 0 ? (window.scrollY / max) * 100 : 0;
+      if (progressRef.current) progressRef.current.style.width = `${progress}%`;
+    };
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -74,10 +82,8 @@ export default function Navbar() {
     <>
       <header
         role="banner"
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${
-          isGlass
-            ? 'bg-[rgba(250,248,244,0.92)] backdrop-blur-lg shadow-[0_1px_0_#E8E0D4]'
-            : 'bg-transparent'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          isGlass ? 'glass-nav' : 'bg-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 md:px-6">
@@ -235,6 +241,18 @@ export default function Navbar() {
               </span>
             </button>
           </div>
+        </div>
+
+        {/* ===== SCROLL PROGRESS ===== */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-[2px] pointer-events-none"
+          style={{ background: isGlass ? 'rgba(201,168,76,0.12)' : 'transparent' }}
+        >
+          <div
+            ref={progressRef}
+            className="h-full"
+            style={{ width: '0%', backgroundColor: '#C9A84C', transition: 'width 0.1s linear' }}
+          />
         </div>
 
         {/* ===== MOBILE MENU ===== */}

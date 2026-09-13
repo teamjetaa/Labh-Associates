@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import BackButton from '@/components/feature/BackButton';
 
 export default function TermsPage() {
   const sections = [
@@ -57,6 +58,9 @@ Address: A 302, Titanium Heights, Opp. Vodafone House, Corporate Road, Prahaladn
       {/* Header */}
       <div className="bg-[#2C2825] pt-24 md:pt-32 pb-12 md:pb-16">
         <div className="max-w-4xl mx-auto px-4 md:px-6">
+          <div className="mb-5 flex justify-start">
+            <BackButton />
+          </div>
           <div className="mb-4">
             <span className="text-xs font-semibold font-label uppercase tracking-[0.15em] text-[#C9A84C]">Legal</span>
           </div>

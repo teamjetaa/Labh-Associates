@@ -87,16 +87,7 @@ export default function ServicesSection() {
             <Link
               key={service.slug}
               to={`/services/${service.slug}`}
-              className="reveal group block bg-white rounded-[4px] border border-[#E8E0D4] p-7 md:p-8 relative overflow-hidden transition-all duration-300 hover:-translate-y-[5px]"
-              style={{
-                boxShadow: 'none',
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 16px 40px rgba(0,0,0,0.07)';
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.boxShadow = 'none';
-              }}
+              className="reveal group block glass-panel lift-glow rounded-2xl p-7 md:p-8 relative overflow-hidden"
             >
               {/* Top border accent — appears on hover */}
               <div

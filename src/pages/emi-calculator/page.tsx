@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import PageHero from '@/components/feature/PageHero';
 
 export default function EMICalculatorPage() {
   const [loanAmount, setLoanAmount] = useState<number>(1000000);
@@ -33,21 +34,12 @@ export default function EMICalculatorPage() {
   return (
     <div>
       {/* Page Header */}
-      <section
-        className="py-16 md:py-24 relative overflow-hidden"
-        style={{
-          background: 'linear-gradient(135deg, #2C2825 0%, #3D3530 50%, #2C2825 100%)',
-          backgroundSize: '200% 200%',
-          animation: 'heroGradient 15s ease infinite',
-        }}
-      >
-        <div className="max-w-7xl mx-auto px-4 md:px-6 text-center relative">
-          <h1 className="text-3xl md:text-5xl font-bold font-heading text-[#F2EDE4]">EMI Calculator</h1>
-          <p className="text-[#8C8480] mt-3 text-sm md:text-base max-w-xl mx-auto">
-            Calculate your monthly EMI, total interest, and total payment in seconds
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Financial Tools"
+        title="EMI Calculator"
+        subtitle="Calculate your monthly EMI, total interest, and total payment in seconds."
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'EMI Calculator' }]}
+      />
 
       {/* Calculator */}
       <section className="py-16 md:py-24 bg-white">

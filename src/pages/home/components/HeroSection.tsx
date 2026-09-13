@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
+import { useMarketQuotes } from '@/hooks/useMarketQuotes';
 
 /* ===== HERO SECTION =====
  * Full-viewport, warm charcoal gradient bg
  * Two-column: 55% text + 45% abstract CSS visual
  */
 export default function HeroSection() {
+  const { items: tickerItems } = useMarketQuotes();
+
   const trustStats = [
     { number: '15+', label: 'Years of expertise' },
     { number: '500+', label: 'Clients served' },
@@ -286,12 +289,37 @@ export default function HeroSection() {
 
       {/* Scroll indicator */}
       <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-16 left-1/2 -translate-x-1/2 z-20"
         style={{ animation: 'bounceChevron 2s ease infinite' }}
       >
         <span className="w-6 h-6 flex items-center justify-center text-[#F2EDE4]/30">
           <i className="ri-arrow-down-s-line" style={{ fontSize: '22px' }} />
         </span>
+      </div>
+
+      {/* ===== SCROLLING MARKET TICKER STRIP ===== */}
+      <div
+        className="absolute bottom-0 left-0 right-0 z-20 overflow-hidden"
+        style={{
+          borderTop: '1px solid rgba(201, 168, 76, 0.18)',
+          background: 'rgba(26, 23, 20, 0.55)',
+          WebkitBackdropFilter: 'blur(8px)',
+          backdropFilter: 'blur(8px)',
+        }}
+      >
+        <div className="ticker-track py-2.5">
+          {[...tickerItems, ...tickerItems].map((item, i) => (
+            <span key={i} className="flex items-center shrink-0">
+              <span
+                className="font-label text-[11px] tracking-wide whitespace-nowrap px-4"
+                style={{ color: item.positive ? '#C9A84C' : 'rgba(242,237,228,0.6)' }}
+              >
+                {item.label}
+              </span>
+              <span className="w-1 h-1 rounded-full shrink-0" style={{ backgroundColor: 'rgba(201,168,76,0.35)' }} />
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   );

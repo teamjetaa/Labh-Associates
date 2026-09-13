@@ -1,9 +1,23 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
+import CustomSelect from '@/components/base/CustomSelect';
 
 interface ContactModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+const serviceOptions = [
+  { value: 'project-finance', label: 'Project Finance' },
+  { value: 'working-capital', label: 'Working Capital & Term Loan' },
+  { value: 'builder-finance', label: 'Builder Finance' },
+  { value: 'msme-loan', label: 'MSME Loan' },
+  { value: 'machinery-loan', label: 'Machinery Loan' },
+  { value: 'subsidy', label: 'Subsidy' },
+  { value: 'loan-against-property', label: 'Loan Against Property' },
+  { value: 'business-loan', label: 'Business Loan / Unsecured Loan' },
+  { value: 'housing-loan', label: 'Housing Loan' },
+  { value: 'other', label: 'Other' },
+];
 
 export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
@@ -11,6 +25,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [visible, setVisible] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
+  const [service, setService] = useState('');
   const formRef = useRef<HTMLFormElement>(null);
 
   // Mount/unmount + animation lifecycle
@@ -75,6 +90,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
     if (honeypotVal) {
       setFormStatus('sent');
       form.reset();
+      setService('');
       return;
     }
     formData.delete('website_alt');
@@ -101,6 +117,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
       if (response.ok && parsed?.success) {
         setFormStatus('sent');
         form.reset();
+        setService('');
       } else {
         const serverMsg = parsed?.message || 'Something went wrong. Please try again.';
         setFormError(serverMsg);
@@ -356,23 +373,15 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     <label htmlFor="modal-service" className="block text-xs font-semibold font-label uppercase tracking-wider text-[#8C8480] mb-1.5">
                       Service of Interest
                     </label>
-                    <select
+                    <CustomSelect
                       id="modal-service"
                       name="service"
-                      className="w-full px-4 py-2.5 border border-[#E8E0D4] rounded-sm text-sm text-[#1A1714] focus:border-[#C9A84C] transition-colors bg-white"
-                    >
-                      <option value="">Select a service</option>
-                      <option value="project-finance">Project Finance</option>
-                      <option value="working-capital">Working Capital &amp; Term Loan</option>
-                      <option value="builder-finance">Builder Finance</option>
-                      <option value="msme-loan">MSME Loan</option>
-                      <option value="machinery-loan">Machinery Loan</option>
-                      <option value="subsidy">Subsidy</option>
-                      <option value="loan-against-property">Loan Against Property</option>
-                      <option value="business-loan">Business Loan / Unsecured Loan</option>
-                      <option value="housing-loan">Housing Loan</option>
-                      <option value="other">Other</option>
-                    </select>
+                      value={service}
+                      onChange={setService}
+                      options={serviceOptions}
+                      placeholder="Select a service"
+                      ariaLabel="Service of interest"
+                    />
                   </div>
                 </div>
 

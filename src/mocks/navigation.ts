@@ -1,6 +1,15 @@
 export const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
+  {
+    label: 'About',
+    href: '/about',
+    children: [
+      { label: 'Our Firm', href: '/about' },
+      { label: 'Leadership & Team', href: '/team' },
+      { label: 'Careers', href: '/careers' },
+      { label: 'Compliance & Disclosures', href: '/compliance' },
+    ],
+  },
   {
     label: 'Services',
     href: '/services',
@@ -16,5 +25,22 @@ export const navLinks = [
       { label: 'Housing Loans', href: '/services/housing-loan' },
     ],
   },
-  { label: 'EMI Calculator', href: '/emi-calculator' },
+  {
+    label: 'Insights',
+    href: '/case-studies',
+    children: [
+      { label: 'Case Studies', href: '/case-studies' },
+      { label: 'Client Trust', href: '/testimonials' },
+      { label: 'FAQ', href: '/faq' },
+    ],
+  },
+  {
+    label: 'Resources',
+    href: '/resources',
+    children: [
+      { label: 'Financial Tools', href: '/resources' },
+      { label: 'EMI Calculator', href: '/emi-calculator' },
+      { label: 'Contact Us', href: '/contact' },
+    ],
+  },
 ];

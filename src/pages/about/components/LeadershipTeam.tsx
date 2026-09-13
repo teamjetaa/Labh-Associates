@@ -16,14 +16,14 @@ export default function LeadershipTeam() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 md:gap-10 max-w-md mx-auto place-items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-4xl mx-auto items-stretch">
           {teamMembers.map((member) => (
             <div
               key={member.id}
-              className="reveal group bg-white rounded-md overflow-hidden border border-[#E8E0D4] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+              className="reveal group flex flex-col h-full bg-white rounded-md overflow-hidden border border-[#E8E0D4] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
             >
               {/* Image */}
-              <div className="aspect-[4/3] overflow-hidden">
+              <div className="aspect-[4/3] overflow-hidden shrink-0">
                 <img
                   src={member.image}
                   alt={member.name}
@@ -32,7 +32,7 @@ export default function LeadershipTeam() {
               </div>
 
               {/* Info */}
-              <div className="p-6 md:p-8 text-center">
+              <div className="flex flex-col flex-1 p-6 md:p-8 text-center">
                 <span className="text-xs font-semibold font-label text-[#C9A84C] uppercase tracking-[0.12em]">
                   {member.role}
                 </span>
