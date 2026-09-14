@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PageHero from '@/components/feature/PageHero';
+import useScrollReveal from '@/hooks/useScrollReveal';
 import { services } from '@/mocks/services';
 
 /* ===== SERVICES PAGE =====
@@ -8,6 +9,7 @@ import { services } from '@/mocks/services';
  * "Learn More" opens the card to reveal full description + features.
  */
 export default function ServicesPage() {
+  useScrollReveal();
   const [expandedId, setExpandedId] = useState<number | null>(null);
 
   const toggle = (id: number) => {
@@ -77,11 +79,9 @@ export default function ServicesPage() {
                   {/* Expanded content — smooth grid trick for height animation */}
                   <div
                     id={`service-details-${service.id}`}
-                    className="grid transition-all duration-500"
-                    style={{
-                      gridTemplateRows: isOpen ? '1fr' : '0fr',
-                      transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
-                    }}
+                    className={`grid transition-all duration-300 ease-out ${
+                      isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                    }`}
                   >
                     <div className="overflow-hidden">
                       <div className="px-6 md:px-8 pb-6 md:pb-8">

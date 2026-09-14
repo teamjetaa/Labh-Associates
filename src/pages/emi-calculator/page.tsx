@@ -1,7 +1,9 @@
 import { useState, useCallback } from 'react';
 import PageHero from '@/components/feature/PageHero';
+import useScrollReveal from '@/hooks/useScrollReveal';
 
 export default function EMICalculatorPage() {
+  useScrollReveal();
   const [loanAmount, setLoanAmount] = useState<number>(1000000);
   const [interestRate, setInterestRate] = useState<number>(10);
   const [loanTenure, setLoanTenure] = useState<number>(10);

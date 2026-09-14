@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import MatrixRain from '@/components/feature/MatrixRain';
+import { isSameSection } from '@/lib/sectionNav';
 
 /* ===== FOOTER =====
  * Warm charcoal base with gold accents, expanded sitemap and a
@@ -55,6 +56,8 @@ const trustBadges = [
 ];
 
 export default function Footer() {
+  const { pathname } = useLocation();
+
   return (
     <footer role="contentinfo" className="relative overflow-hidden" style={{ backgroundColor: '#2C2825' }}>
       {/* Gold top border */}
@@ -109,16 +112,33 @@ export default function Footer() {
                 {col.heading}
               </h5>
               <ul className="space-y-2.5">
-                {col.links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      to={link.href}
-                      className="text-sm text-[#F2EDE4]/60 hover:text-[#C9A84C] transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+                {col.links.map((link) => {
+                  const isActive = pathname === link.href;
+                  const showMarker = col.heading === 'Services';
+                  return (
+                    <li key={link.label}>
+                      <Link
+                        to={link.href}
+                        replace={isSameSection(pathname, link.href)}
+                        aria-current={isActive ? 'page' : undefined}
+                        className={`group inline-flex items-center gap-2 text-sm transition-colors ${
+                          isActive
+                            ? 'text-[#C9A84C] font-medium'
+                            : 'text-[#F2EDE4]/60 hover:text-[#C9A84C]'
+                        }`}
+                      >
+                        {showMarker && (
+                          <span
+                            className={`w-1.5 h-1.5 rounded-full shrink-0 transition-all duration-200 ${
+                              isActive ? 'bg-[#C9A84C]' : 'bg-transparent group-hover:bg-[#C9A84C]/40'
+                            }`}
+                          />
+                        )}
+                        {link.label}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}

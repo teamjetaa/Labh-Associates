@@ -69,8 +69,9 @@ export default function FaqPage() {
                     </span>
                   </button>
                   <div
-                    className="grid transition-all duration-500"
-                    style={{ gridTemplateRows: isOpen ? '1fr' : '0fr', transitionTimingFunction: 'cubic-bezier(0.22,1,0.36,1)' }}
+                    className={`grid transition-all duration-300 ease-out ${
+                      isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                    }`}
                   >
                     <div className="overflow-hidden">
                       <p className="px-5 md:px-6 pb-5 text-sm leading-relaxed text-[#4A4540]">{item.a}</p>

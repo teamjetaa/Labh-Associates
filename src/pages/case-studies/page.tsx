@@ -139,8 +139,9 @@ export default function CaseStudiesPage() {
                     </button>
 
                     <div
-                      className="grid transition-all duration-500"
-                      style={{ gridTemplateRows: isOpen ? '1fr' : '0fr', transitionTimingFunction: 'cubic-bezier(0.22,1,0.36,1)' }}
+                      className={`grid transition-all duration-300 ease-out ${
+                        isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                      }`}
                     >
                       <div className="overflow-hidden">
                         <div className="pt-5 mt-5 space-y-4" style={{ borderTop: '1px solid rgba(201,168,76,0.18)' }}>

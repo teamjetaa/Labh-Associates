@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { navLinks } from '@/mocks/navigation';
 import ContactModal from './ContactModal';
+import { isSameSection } from '@/lib/sectionNav';
 
 /* ===== NAVBAR =====
  * Home page: transparent over hero → warm frosted glass on scroll
@@ -75,9 +76,14 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
 
-  const isActive = (href: string) => {
-    if (href === '/') return location.pathname === '/';
-    return location.pathname.startsWith(href);
+  const isActive = (href: string, children?: { href: string }[]) => {
+    const matches = (target: string) => {
+      if (target === '/') return location.pathname === '/';
+      return location.pathname === target || location.pathname.startsWith(`${target}/`);
+    };
+    if (matches(href)) return true;
+    // A dropdown parent also counts as active when one of its children is.
+    return (children ?? []).some((child) => matches(child.href));
   };
 
   // On non-home pages, always show the scrolled/glass state
@@ -122,8 +128,8 @@ export default function Navbar() {
                       onClick={() =>
                         setActiveDropdown(activeDropdown === link.label ? null : link.label)
                       }
-                      className={`flex items-center gap-1 px-3 py-2 text-[14px] font-label whitespace-nowrap transition-colors duration-300 ${
-                        isActive(link.href)
+                      className={`relative flex items-center gap-1 px-3 py-2 text-[14px] font-label whitespace-nowrap transition-colors duration-300 group/nav ${
+                        isActive(link.href, link.children)
                           ? 'text-[#C9A84C]'
                           : isGlass
                             ? 'text-[#4A4540] hover:text-[#C9A84C]'
@@ -138,6 +144,11 @@ export default function Navbar() {
                           }`}
                         />
                       </span>
+                      <span
+                        className={`absolute bottom-0 left-3 right-3 h-[1.5px] bg-[#C9A84C] transform scale-x-0 origin-left transition-transform duration-300 group-hover/nav:scale-x-100 ${
+                          isActive(link.href, link.children) ? 'scale-x-100' : ''
+                        }`}
+                      />
                     </button>
                   ) : (
                     <Link
@@ -175,6 +186,7 @@ export default function Navbar() {
                               <Link
                                 key={child.label}
                                 to={child.href}
+                                replace={isSameSection(location.pathname, child.href)}
                                 className={`flex items-center gap-2.5 px-2.5 py-2.5 rounded-[3px] text-sm font-label transition-colors ${
                                   location.pathname === child.href
                                     ? 'text-[#C9A84C] bg-[rgba(201,168,76,0.06)]'
@@ -207,6 +219,7 @@ export default function Navbar() {
                             <Link
                               key={child.label}
                               to={child.href}
+                              replace={isSameSection(location.pathname, child.href)}
                               className={`block px-4 py-2.5 text-sm font-label transition-colors ${
                                 location.pathname === child.href
                                   ? 'text-[#C9A84C] bg-gold/5'
@@ -314,7 +327,7 @@ export default function Navbar() {
                           setActiveDropdown(activeDropdown === link.label ? null : link.label)
                         }
                         className={`w-full flex items-center justify-center gap-1.5 px-3 py-2 text-lg font-heading font-medium ${
-                          isActive(link.href) ? 'text-[#C9A84C]' : 'text-[#F2EDE4]/80'
+                          isActive(link.href, link.children) ? 'text-[#C9A84C]' : 'text-[#F2EDE4]/80'
                         }`}
                       >
                         {link.label}
@@ -339,6 +352,7 @@ export default function Navbar() {
                               <Link
                                 key={child.label}
                                 to={child.href}
+                                replace={isSameSection(location.pathname, child.href)}
                                 onClick={() => setMobileOpen(false)}
                                 className={`block px-3 py-2 text-sm font-label transition-colors ${
                                   location.pathname === child.href
@@ -356,6 +370,7 @@ export default function Navbar() {
                   ) : (
                     <Link
                       to={link.href}
+                      replace={isSameSection(location.pathname, link.href)}
                       onClick={() => setMobileOpen(false)}
                       className={`block px-3 py-2 text-lg font-heading font-medium ${
                         isActive(link.href)

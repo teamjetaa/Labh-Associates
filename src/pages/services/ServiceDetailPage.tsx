@@ -123,6 +123,7 @@ export default function ServiceDetailPage() {
               <Link
                 key={s.id}
                 to={`/services/${s.slug}`}
+                replace
                 className="group bg-white p-6 rounded-md border border-[#E8E0D4] hover:shadow-lg transition-all duration-300"
               >
                 <div className="w-12 h-12 flex items-center justify-center rounded-md bg-gold/10 mb-4">

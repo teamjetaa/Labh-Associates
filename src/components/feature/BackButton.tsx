@@ -1,4 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { getInAppDepth } from '@/lib/navHistory';
+import { getBackTarget } from '@/lib/sectionNav';
 
 interface BackButtonProps {
   label?: string;
@@ -14,10 +16,20 @@ interface BackButtonProps {
  */
 export default function BackButton({ label = 'Back', tone = 'light', className = '' }: BackButtonProps) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleBack = () => {
-    const historyIndex = window.history.state?.idx;
-    if (typeof historyIndex === 'number' && historyIndex > 0) {
+    // Hierarchical back: an inner page always returns to its section's list
+    // page first (e.g. a service detail or FAQ), and legal leaf pages return
+    // Home — instead of retracing each page viewed before.
+    const backTarget = getBackTarget(location.pathname);
+    if (backTarget) {
+      navigate(backTarget);
+      return;
+    }
+    // Section lists and top-level pages go exactly one page back, and only
+    // fall back to the home page on a direct visit with no in-app history.
+    if (getInAppDepth() > 0) {
       navigate(-1);
     } else {
       navigate('/');
