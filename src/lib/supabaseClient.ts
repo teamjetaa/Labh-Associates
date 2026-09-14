@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import type { LockFunc } from '@supabase/supabase-js';
 
 const supabaseUrl = import.meta.env.VITE_PUBLIC_SUPABASE_URL as string;
 const supabaseAnonKey = import.meta.env.VITE_PUBLIC_SUPABASE_ANON_KEY as string;
@@ -32,7 +33,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
-    lock: serializedLock as unknown as typeof navigator.locks.request,
+    lock: serializedLock as LockFunc,
   },
   global: {
     fetch: (...args: Parameters<typeof fetch>) =>

@@ -3,7 +3,7 @@ import CustomSelect from '@/components/base/CustomSelect';
 
 /* ===== CV SUBMISSION SECTION =====
  * Candidates submit their details + a link to their CV
- * Submits to Readdy Form API
+ * Submits via Web3Forms
  */
 
 const roleOptions = [
@@ -43,11 +43,12 @@ export default function CvSubmitSection() {
 
     try {
       const params = new URLSearchParams();
+      params.append('access_key', '4e7c6588-ca29-4cfd-8a3a-d41b3d3dc5ff');
       formData.forEach((value, key) => {
         if (typeof value === 'string') params.append(key, value);
       });
 
-      const response = await fetch('https://readdy.ai/api/form/daj553rp14a1h3mr7bs0', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: params.toString(),
@@ -57,17 +58,13 @@ export default function CvSubmitSection() {
       let parsed;
       try { parsed = JSON.parse(responseText); } catch { parsed = null; }
 
-      if (response.ok && parsed?.code === 'OK') {
+      if (response.ok && parsed?.success) {
         setFormStatus('sent');
         form.reset();
         setPosition('');
       } else {
-        const serverMsg = parsed?.meta?.message || parsed?.message || parsed?.meta?.detail || responseText || 'Something went wrong. Please try again.';
-        if (serverMsg.toLowerCase().includes('spam') || serverMsg.toLowerCase().includes('form data is spam')) {
-          setFormError('Something went wrong. Please try again.');
-        } else {
-          setFormError(serverMsg);
-        }
+        const serverMsg = parsed?.message || 'Something went wrong. Please try again.';
+        setFormError(serverMsg);
         setFormStatus('error');
       }
     } catch {

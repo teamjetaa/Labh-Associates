@@ -27,6 +27,7 @@ export default function Navbar() {
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const location = useLocation();
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
 
   const isHome = location.pathname === '/';
@@ -49,11 +50,26 @@ export default function Navbar() {
     setActiveDropdown(null);
   }, [location.pathname]);
 
+  // Lock body scroll while the mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }
+    return undefined;
+  }, [mobileOpen]);
+
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setActiveDropdown(null);
-      }
+      const target = e.target as Node;
+      // Ignore clicks inside the desktop nav OR the mobile menu — otherwise the
+      // mobile accordion collapses on mousedown before the link tap registers.
+      if (dropdownRef.current && dropdownRef.current.contains(target)) return;
+      if (mobileMenuRef.current && mobileMenuRef.current.contains(target)) return;
+      setActiveDropdown(null);
     };
     document.addEventListener('mousedown', handleClick);
     return () => document.removeEventListener('mousedown', handleClick);
@@ -142,11 +158,18 @@ export default function Navbar() {
                   )}
 
                   {/* Dropdown */}
-                  {link.children && activeDropdown === link.label && (
-                    <div className="absolute top-full left-0 mt-2 z-50">
+                  {link.children && (
+                    <div
+                      aria-hidden={activeDropdown !== link.label}
+                      className={`absolute top-full left-0 mt-2 z-50 origin-top transition-all duration-200 ease-out ${
+                        activeDropdown === link.label
+                          ? 'opacity-100 translate-y-0 visible pointer-events-auto'
+                          : 'opacity-0 -translate-y-2 invisible pointer-events-none'
+                      }`}
+                    >
                       {link.label === 'Services' ? (
                         /* ===== SERVICES MEGA DROPDOWN ===== */
-                        <div className="w-[420px] bg-white rounded-[4px] shadow-[0_16px_48px_rgba(0,0,0,0.12)] border border-[#E8E0D4] py-5 px-5 animate-[dropdownIn_0.25s_ease-out]">
+                        <div className="w-[420px] bg-white rounded-[4px] shadow-[0_16px_48px_rgba(0,0,0,0.12)] border border-[#E8E0D4] py-5 px-5">
                           <div className="grid grid-cols-2 gap-x-3 gap-y-1">
                             {link.children.map((child) => (
                               <Link
@@ -179,7 +202,7 @@ export default function Navbar() {
                         </div>
                       ) : (
                         /* ===== STANDARD DROPDOWN ===== */
-                        <div className="w-56 bg-white rounded-lg shadow-xl border border-[#E8E0D4] py-2 z-50 animate-[dropdownIn_0.25s_ease-out]">
+                        <div className="w-56 bg-white rounded-lg shadow-xl border border-[#E8E0D4] py-2 z-50">
                           {link.children.map((child) => (
                             <Link
                               key={child.label}
@@ -255,55 +278,69 @@ export default function Navbar() {
           />
         </div>
 
-        {/* ===== MOBILE MENU ===== */}
-        {mobileOpen && (
-          <div className="lg:hidden fixed inset-0 z-[100] bg-[#1A1714] flex flex-col">
-            {/* Close button */}
-            <div className="flex items-center justify-end px-4 h-16 shrink-0">
-              <button
-                onClick={() => setMobileOpen(false)}
-                className="w-10 h-10 flex items-center justify-center"
-                aria-label="Close menu"
-              >
-                <span className="w-6 h-6 flex items-center justify-center">
-                  <i className="ri-close-line text-2xl text-[#F2EDE4]" />
-                </span>
-              </button>
-            </div>
+      </header>
 
-            {/* Menu items */}
-            <div className="flex-1 overflow-y-auto px-6 pb-8 flex flex-col items-center justify-center gap-5">
-              {navLinks.map((link) => {
-                const hasChildren = Array.isArray(link.children) && link.children.length > 0;
-                return (
-                  <div key={link.label} className="w-full text-center">
-                    {hasChildren ? (
-                      <>
-                        <button
-                          onClick={() =>
-                            setActiveDropdown(activeDropdown === link.label ? null : link.label)
-                          }
-                          className={`w-full flex items-center justify-center gap-1.5 px-3 py-2 text-lg font-heading font-medium ${
-                            isActive(link.href) ? 'text-[#C9A84C]' : 'text-[#F2EDE4]/80'
-                          }`}
-                        >
-                          {link.label}
-                          <span className="w-4 h-4 flex items-center justify-center">
-                            <i
-                              className={`ri-arrow-down-s-line transition-transform text-sm ${
-                                activeDropdown === link.label ? 'rotate-180' : ''
-                              }`}
-                            />
-                          </span>
-                        </button>
-                        {activeDropdown === link.label && (
+      {/* ===== MOBILE MENU =====
+       * Rendered OUTSIDE <header> on purpose. The header uses .glass-nav
+       * (backdrop-filter), which establishes a containing block for fixed
+       * descendants — placing this panel inside it would trap the full-screen
+       * menu inside the short header box. As a sibling it fills the viewport. */}
+      {mobileOpen && (
+        <div ref={mobileMenuRef} className="lg:hidden fixed inset-0 z-[120] bg-[#1A1714] flex flex-col">
+          {/* Close button */}
+          <div className="flex items-center justify-end px-4 h-16 shrink-0">
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="w-10 h-10 flex items-center justify-center"
+              aria-label="Close menu"
+            >
+              <span className="w-6 h-6 flex items-center justify-center">
+                <i className="ri-close-line text-2xl text-[#F2EDE4]" />
+              </span>
+            </button>
+          </div>
+
+          {/* Menu items */}
+          <div className="flex-1 overflow-y-auto px-6 pb-8 flex flex-col items-center">
+            <div className="my-auto w-full flex flex-col items-center gap-5">
+            {navLinks.map((link) => {
+              const hasChildren = Array.isArray(link.children) && link.children.length > 0;
+              return (
+                <div key={link.label} className="w-full text-center">
+                  {hasChildren ? (
+                    <>
+                      <button
+                        onClick={() =>
+                          setActiveDropdown(activeDropdown === link.label ? null : link.label)
+                        }
+                        className={`w-full flex items-center justify-center gap-1.5 px-3 py-2 text-lg font-heading font-medium ${
+                          isActive(link.href) ? 'text-[#C9A84C]' : 'text-[#F2EDE4]/80'
+                        }`}
+                      >
+                        {link.label}
+                        <span className="w-4 h-4 flex items-center justify-center">
+                          <i
+                            className={`ri-arrow-down-s-line transition-transform text-sm ${
+                              activeDropdown === link.label ? 'rotate-180' : ''
+                            }`}
+                          />
+                        </span>
+                      </button>
+                      <div
+                        className={`grid transition-all duration-300 ease-out ${
+                          activeDropdown === link.label
+                            ? 'grid-rows-[1fr] opacity-100'
+                            : 'grid-rows-[0fr] opacity-0'
+                        }`}
+                      >
+                        <div className="overflow-hidden">
                           <div className="space-y-1 pb-2">
                             {link.children!.map((child) => (
                               <Link
                                 key={child.label}
                                 to={child.href}
                                 onClick={() => setMobileOpen(false)}
-                                className={`block px-3 py-2 text-sm font-label ${
+                                className={`block px-3 py-2 text-sm font-label transition-colors ${
                                   location.pathname === child.href
                                     ? 'text-[#C9A84C]'
                                     : 'text-[#F2EDE4]/50 hover:text-[#C9A84C]'
@@ -313,34 +350,35 @@ export default function Navbar() {
                               </Link>
                             ))}
                           </div>
-                        )}
-                      </>
-                    ) : (
-                      <Link
-                        to={link.href}
-                        onClick={() => setMobileOpen(false)}
-                        className={`block px-3 py-2 text-lg font-heading font-medium ${
-                          isActive(link.href)
-                            ? 'text-[#C9A84C]'
-                            : 'text-[#F2EDE4]/80 hover:text-[#C9A84C]'
-                        }`}
-                      >
-                        {link.label}
-                      </Link>
-                    )}
-                  </div>
-                );
-              })}
-              <button
-                onClick={openContactModal}
-                className="mt-4 px-8 py-3 border border-[#C9A84C] text-[#C9A84C] text-sm font-medium font-label rounded-sm hover:bg-[#C9A84C] hover:text-[#1A1714] transition-all"
-              >
-                Get in Touch
-              </button>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className={`block px-3 py-2 text-lg font-heading font-medium ${
+                        isActive(link.href)
+                          ? 'text-[#C9A84C]'
+                          : 'text-[#F2EDE4]/80 hover:text-[#C9A84C]'
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  )}
+                </div>
+              );
+            })}
+            <button
+              onClick={openContactModal}
+              className="mt-4 px-8 py-3 border border-[#C9A84C] text-[#C9A84C] text-sm font-medium font-label rounded-sm hover:bg-[#C9A84C] hover:text-[#1A1714] transition-all"
+            >
+              Get in Touch
+            </button>
             </div>
           </div>
-        )}
-      </header>
+        </div>
+      )}
       <ContactModal isOpen={contactModalOpen} onClose={() => setContactModalOpen(false)} />
     </>
   );

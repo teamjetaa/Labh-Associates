@@ -3,7 +3,8 @@ import useScrollReveal from '@/hooks/useScrollReveal';
 import PageHero from '@/components/feature/PageHero';
 import CustomSelect from '@/components/base/CustomSelect';
 
-const FORM_URL = 'https://readdy.ai/api/form/daj4k23oh653ivfvokj0';
+const FORM_URL = 'https://api.web3forms.com/submit';
+const WEB3FORMS_ACCESS_KEY = '4e7c6588-ca29-4cfd-8a3a-d41b3d3dc5ff';
 
 const serviceOptions = [
   { value: 'project-finance', label: 'Project Finance' },
@@ -73,6 +74,7 @@ export default function ContactPage() {
 
     try {
       const params = new URLSearchParams();
+      params.append('access_key', WEB3FORMS_ACCESS_KEY);
       formData.forEach((value, key) => {
         if (typeof value === 'string') params.append(key, value);
       });
@@ -91,20 +93,13 @@ export default function ContactPage() {
         parsed = null;
       }
 
-      if (response.ok && parsed?.code === 'OK') {
+      if (response.ok && parsed?.success) {
         setFormStatus('sent');
         form.reset();
         setService('');
       } else {
-        const serverMsg =
-          parsed?.meta?.message ||
-          parsed?.message ||
-          parsed?.meta?.detail ||
-          responseText ||
-          'Something went wrong. Please try again.';
-        setFormError(
-          serverMsg.toLowerCase().includes('spam') ? 'Something went wrong. Please try again.' : serverMsg
-        );
+        const serverMsg = parsed?.message || 'Something went wrong. Please try again.';
+        setFormError(serverMsg);
         setFormStatus('error');
       }
     } catch {
