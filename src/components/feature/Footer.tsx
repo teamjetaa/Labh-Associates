@@ -196,8 +196,8 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="relative z-10" style={{ borderTop: '1px solid rgba(201, 168, 76, 0.15)' }}>
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-[#F2EDE4]/40 font-label">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex flex-col lg:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-[#F2EDE4]/40 font-label text-center lg:text-left">
             &copy; {new Date().getFullYear()} LABH Associates. All rights reserved.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
@@ -213,6 +213,20 @@ export default function Footer() {
               Privacy Policy
             </Link>
           </div>
+          <a
+            href="https://jetaa.in/"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            aria-label="Created by Jetaa IT Services"
+            className="group inline-flex items-center gap-1.5 shrink-0 cursor-pointer"
+          >
+            <span className="text-xs sm:text-sm text-[#F2EDE4]/40 font-label whitespace-nowrap">
+              Created by
+            </span>
+            <span className="text-sm font-label font-medium text-[#F2EDE4]/60 group-hover:text-[#C9A84C] underline decoration-[#C9A84C]/0 group-hover:decoration-[#C9A84C] underline-offset-2 transition-colors">
+              Jetaa
+            </span>
+          </a>
         </div>
       </div>
     </footer>
